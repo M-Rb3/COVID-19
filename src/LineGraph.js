@@ -56,7 +56,7 @@ function LineGraph() {
       .then((response) => response.json())
       .then((data) => {
         const chartData = bildChartDAta(data);
-        console.log(chartData);
+        // console.log(chartData);
         setData(chartData);
       });
   }, []);
@@ -76,7 +76,7 @@ function LineGraph() {
     }
     return chartData;
   };
-  console.log(data);
+  // console.log(data);
   return (
     <div>
       {data?.length > 0 && (

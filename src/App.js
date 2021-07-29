@@ -12,12 +12,17 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import InfoBox from "./InfoBox";
 import Map from "./Map";
+import "leaflet/dist/leaflet.css";
+
 function App() {
   // STATES
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
+  const [mapCenter, setMapCenter] = useState([34.80746, -40.4796]);
+  const [mapZoom, setMapZoom] = useState(3);
+  const [mapCountries, setMapCountries] = useState([]);
   // Handlers
   const onCountryChange = async (e) => {
     const country_code = e.target.value;
@@ -31,6 +36,11 @@ function App() {
       .then((data) => {
         // setCountry(country_code)
         setCountryInfo(data);
+        console.log(data);
+        country_code === "worldwide"
+          ? setMapCenter([34.80746, -40.4796])
+          : setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setMapZoom(4);
       });
   };
   useEffect(() => {
@@ -51,6 +61,7 @@ function App() {
             id: country.countryInfo._id,
           }));
           const sortedData = sortData(data);
+          setMapCountries(data);
           setTableData(sortedData);
           setCountries(countries);
         });
@@ -97,7 +108,12 @@ function App() {
             total={countryInfo.deaths}
           />
         </div>
-        <Map />
+        <Map
+          center={mapCenter}
+          caseType="cases"
+          zoom={mapZoom}
+          countries={mapCountries}
+        />
       </div>
       <Card className="app__right">
         <CardContent>
