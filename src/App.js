@@ -4,8 +4,10 @@ import {
   MenuItem,
   Card,
   CardContent,
-  Table,
 } from "@material-ui/core";
+import Table from "./Table";
+import LineGraph from "./LineGraph";
+import { sortData } from "./util.js";
 import { useState, useEffect } from "react";
 import "./App.css";
 import InfoBox from "./InfoBox";
@@ -48,7 +50,8 @@ function App() {
             value: country.countryInfo.iso2, //UK , USA , FR
             id: country.countryInfo._id,
           }));
-          setTableData(data);
+          const sortedData = sortData(data);
+          setTableData(sortedData);
           setCountries(countries);
         });
     };
@@ -101,7 +104,7 @@ function App() {
           <h3>Live Cases by Country</h3>
           <Table countries={tableData}></Table>
           <h3>Worldwide new Cases</h3>
-          {/* Graph  */}
+          <LineGraph />
         </CardContent>
       </Card>
     </div>
