@@ -56,7 +56,7 @@ function App() {
         });
     };
     getCountriesData();
-  }, [countries]);
+  }, []);
   return (
     <div className="app">
       <div className="app__left">

@@ -41,6 +41,7 @@ const options = {
           callback: function (value, index, values) {
             return numeral(value).format("0a");
           },
+          beginAtZero: true,
         },
       },
     ],
@@ -73,7 +74,7 @@ function LineGraph() {
     }
     return chartData;
   };
-
+  console.log(data);
   return (
     <div>
       {data?.length > 0 && (
@@ -84,6 +85,7 @@ function LineGraph() {
                 backgroundColor: "rgba(204, 16, 52, 0.5)",
                 borderColor: "#CC1034",
                 data: data,
+                label: "number of cases",
               },
             ],
           }}
