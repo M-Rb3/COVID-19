@@ -3,10 +3,8 @@ import { Line } from "react-chartjs-2";
 import numeral from "numeral";
 
 const options = {
-  plugins: {
-    legend: {
-      display: false,
-    },
+  legend: {
+    display: false,
   },
   elements: {
     point: {
