@@ -1,10 +1,11 @@
 // rfce
 import { Card, CardContent, Typography } from "@material-ui/core";
 import React from "react";
+import "./InfoBox.css";
 
-function InfoBox({ title, cases, total }) {
+function InfoBox({ title, cases, total, ...props }) {
   return (
-    <Card className="infoBox">
+    <Card onClick={props.onClick} className="infoBox">
       <CardContent>
         <Typography className="infoBox__title" color="textSecondary">
           {title}

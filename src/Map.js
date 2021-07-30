@@ -9,9 +9,10 @@ function Map({ countries, center, caseType, zoom }) {
     map.setView(center, zoom);
     return null;
   }
+  console.log(caseType);
   return (
     <div className="map">
-      <MapContainer center={center} zoom={zoom}>
+      <MapContainer caseType={caseType} center={center} zoom={zoom}>
         <ChangeView center={center} zoom={zoom} />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

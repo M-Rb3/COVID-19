@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import Table from "./Table";
 import LineGraph from "./LineGraph";
-import { sortData } from "./util.js";
+import { sortData, prettyPrintStat } from "./util.js";
 import { useState, useEffect } from "react";
 import "./App.css";
 import InfoBox from "./InfoBox";
@@ -23,6 +23,7 @@ function App() {
   const [mapCenter, setMapCenter] = useState([42.510014, -23.67567]);
   const [mapZoom, setMapZoom] = useState(2);
   const [mapCountries, setMapCountries] = useState([]);
+  const [caseType, setCaseType] = useState("cases");
   // Handlers
   const onCountryChange = async (e) => {
     const country_code = e.target.value;
@@ -71,6 +72,7 @@ function App() {
     };
     getCountriesData();
   }, []);
+
   return (
     <div className="app">
       <div className="app__left">
@@ -96,24 +98,27 @@ function App() {
         {/* Header */}
         <div className="app__stats">
           <InfoBox
-            title="Coronavirus Cases"
-            cases={countryInfo.todayCases}
-            total={countryInfo.cases}
+            onClick={(e) => setCaseType("cases")}
+            title="Cases"
+            cases={prettyPrintStat(countryInfo.todayCases)}
+            total={prettyPrintStat(countryInfo.cases)}
           />
           <InfoBox
+            onClick={(e) => setCaseType("recovered")}
             title="Recovered"
-            cases={countryInfo.todayRecovered}
-            total={countryInfo.recovered}
+            cases={prettyPrintStat(countryInfo.todayRecovered)}
+            total={prettyPrintStat(countryInfo.recovered)}
           />
           <InfoBox
+            onClick={(e) => setCaseType("deaths")}
             title="Deaths"
-            cases={countryInfo.todayDeaths}
-            total={countryInfo.deaths}
+            cases={prettyPrintStat(countryInfo.todayDeaths)}
+            total={prettyPrintStat(countryInfo.deaths)}
           />
         </div>
         <Map
           center={mapCenter}
-          caseType="cases"
+          caseType={caseType}
           zoom={mapZoom}
           countries={mapCountries}
         />
@@ -122,8 +127,8 @@ function App() {
         <CardContent>
           <h3>Live Cases by Country</h3>
           <Table countries={tableData}></Table>
-          <h3>Worldwide new Cases</h3>
-          <LineGraph />
+          <h3>Worldwide new {caseType}</h3>
+          <LineGraph caseType={caseType} />
         </CardContent>
       </Card>
     </div>

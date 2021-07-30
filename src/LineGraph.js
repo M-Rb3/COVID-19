@@ -13,7 +13,6 @@ const options = {
       radius: 0,
     },
   },
-  maintainAspectRatio: false,
   tooltips: {
     mode: "index",
     intersect: false,
@@ -23,10 +22,13 @@ const options = {
       },
     },
   },
+  maintainAspectRatio: false,
+
   scales: {
     xAxes: [
       {
         type: "time",
+        grid: { display: false },
         time: {
           format: "MM/DD/YY",
           tooltipFormat: "ll",
@@ -49,33 +51,34 @@ const options = {
     ],
   },
 };
-function LineGraph() {
+const bildChartDAta = (data, caseType = "cases") => {
+  const chartData = [];
+  let lastDataPoint;
+  for (let date in data.cases) {
+    if (lastDataPoint) {
+      const newDataPoint = {
+        x: date,
+        y: data[caseType][date] - lastDataPoint,
+      };
+
+      chartData.push(newDataPoint);
+    }
+    lastDataPoint = data[caseType][date];
+  }
+  return chartData;
+};
+function LineGraph({ caseType }) {
   const [data, setData] = useState({});
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=120")
       .then((response) => response.json())
       .then((data) => {
-        const chartData = bildChartDAta(data);
+        let chartData = bildChartDAta(data, caseType);
         // console.log(chartData);
         setData(chartData);
       });
-  }, []);
-  const bildChartDAta = (data, caseType = "cases") => {
-    const chartData = [];
-    let lastDataPoint;
-    for (let date in data.cases) {
-      if (lastDataPoint) {
-        const newDataPoint = {
-          x: date,
-          y: data[caseType][date] - lastDataPoint,
-        };
+  }, [caseType]);
 
-        chartData.push(newDataPoint);
-      }
-      lastDataPoint = data[caseType][date];
-    }
-    return chartData;
-  };
   // console.log(data);
   return (
     <div>
