@@ -45,6 +45,7 @@ export const showDataOnMap = (data, caseType) =>
         Math.sqrt(country[caseType] / 10) *
         casesTypeColors[caseType].mulitiplier
       }
+      key={country.country}
     >
       <Popup>
         <div className="info-container">

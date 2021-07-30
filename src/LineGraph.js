@@ -79,7 +79,7 @@ function LineGraph({ caseType }) {
 
   // console.log(data);
   return (
-    <div>
+    <div className="app__graph">
       {data?.length > 0 && (
         <Line
           data={{

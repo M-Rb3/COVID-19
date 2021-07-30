@@ -11,6 +11,7 @@
   display: flex;
   justify-content: space-evenly;
   padding: 20px;
+  background-color: #f3f2f8;
 }
 .app__header {
   display: flex;
@@ -30,4 +31,31 @@
   .app {
     flex-direction: column;
   }
+}
+
+.app__header > h1 {
+  color: #cc1034;
+  font-size: 2rem;
+}
+
+.app__dropdown {
+  background-color: white;
+}
+
+.chart__table {
+  margin-top: 1rem;
+}
+.app__right {
+  display: flex;
+  flex-direction: column;
+}
+
+.app__right .MuiCardContent-root {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.app__graph {
+  flex-grow: 1;
 }

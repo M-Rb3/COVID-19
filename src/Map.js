@@ -9,7 +9,6 @@ function Map({ countries, center, caseType, zoom }) {
     map.setView(center, zoom);
     return null;
   }
-  console.log(caseType);
   return (
     <div className="map">
       <MapContainer caseType={caseType} center={center} zoom={zoom}>
